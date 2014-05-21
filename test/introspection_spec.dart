@@ -53,23 +53,57 @@ void main() {
       expect(toHtml(ngQuery(div, 'li'))).toEqual('<li>stash</li><li>secret</li>');
     });
 
-    // Does not work in dart2js.  deboer is investigating.
-    it('should be available from Javascript', () {
-      // The probe only works if there is a directive.
-      var elt = e('<div ng-app id=ngtop ng-bind="\'introspection FTW\'"></div>');
-      // Make it possible to find the element from JS
-      document.body.append(elt);
-      (applicationFactory()..element = elt).run();
+    describe('JavaScript bindings', () {
+      var elt;
+      var angular;
+      var ngtop;
 
-      expect(js.context['ngProbe']).toBeDefined();
-      expect(js.context['ngScope']).toBeDefined();
-      expect(js.context['ngInjector']).toBeDefined();
-      expect(js.context['ngQuery']).toBeDefined();
+      beforeEach(() {
+        // The probe only works if there is a directive.
+        elt = e('<div ng-app id=ngtop ng-bind="\'introspection FTW\'"></div>');
+        // Make it possible to find the element from JS
+        document.body.append(elt);
+        (applicationFactory()..element = elt).run();
+        angular = js.context['angular'];
+        // Polymer does not support accessing named elements directly (e.g. window.ngtop)
+        // so we need to use getElementById to support Polymer's shadow DOM polyfill.
+        ngtop = document.getElementById('ngtop');
+      });
 
+      afterEach(() {
+        elt.remove();
+        elt = angular = ngtop = null;
+      });
 
-      // Polymer does not support accessing named elements directly (e.g. window.ngtop)
-      // so we need to use getElementById to support Polymer's shadow DOM polyfill.
-      expect(js.context['ngProbe'].apply([document.getElementById('ngtop')])).toBeDefined();
+      // Does not work in dart2js.  deboer is investigating.
+      it('should be available from Javascript', () {
+        expect(js.context['ngProbe']).toBeDefined();
+        expect(js.context['ngInjector']).toBeDefined();
+        expect(js.context['ngScope']).toBeDefined();
+        expect(js.context['ngQuery']).toBeDefined();
+        expect(angular).toBeDefined();
+        expect(angular['resumeBootstrap']).toBeDefined();
+        expect(angular['enableAnimations']).toBeDefined();
+        expect(angular['element']).toBeDefined();
+
+        expect(js.context['ngProbe'].apply([ngtop])).toBeDefined();
+      });
+
+      describe(r'$testability', () {
+        it('should be available from Javascript', () {
+          var element = angular['element'].apply([ngtop]);
+          var testability = element['injector'].apply(null)['get'].apply([r'$testability']);
+          var bindingNodes = testability['findBindings'].apply(['introspection']);
+          expect(bindingNodes.length).toEqual(1);
+          var divElement = bindingNodes[0];
+          expect(divElement is DivElement).toEqual(true);
+          var probe = js.context['ngProbe'].apply([divElement]);
+          expect(probe).toBeDefined();
+          var bindings = probe['bindings'];
+          expect(bindings['length']).toEqual(1);
+          expect(bindings[0]).toEqual('introspection FTW');
+        });
+      });
     });
   });
 }
