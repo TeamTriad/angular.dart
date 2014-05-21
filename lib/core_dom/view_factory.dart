@@ -183,6 +183,7 @@ class ElementProbe {
   final Injector injector;
   final Scope scope;
   final directives = [];
+  final bindings = [];
 
   ElementProbe(this.parent, this.element, this.injector, this.scope);
 }

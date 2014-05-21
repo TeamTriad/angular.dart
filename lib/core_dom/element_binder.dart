@@ -252,7 +252,7 @@ class ElementBinder {
     if (ref.type == TextMustache) {
       nodeModule.bind(TextMustache, toFactory: (Injector injector) {
         return new TextMustache(node, ref.value, injector.get(Interpolate),
-            injector.get(Scope), injector.get(FormatterMap));
+            injector.get(Scope), injector.get(FormatterMap), injector.get(ElementProbe));
       });
     } else if (ref.type == AttrMustache) {
       if (nodesAttrsDirectives.isEmpty) {
@@ -261,7 +261,7 @@ class ElementBinder {
           var interpolate = injector.get(Interpolate);
           for (var ref in nodesAttrsDirectives) {
             new AttrMustache(nodeAttrs, ref.value, interpolate, scope,
-                injector.get(FormatterMap));
+                injector.get(FormatterMap), injector.get(ElementProbe));
           }
         });
       }

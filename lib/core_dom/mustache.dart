@@ -6,10 +6,13 @@ class TextMustache {
   final dom.Node _element;
 
   TextMustache(this._element,
-                          String template,
-                          Interpolate interpolate,
-                          Scope scope,
-                          FormatterMap formatters) {
+               String template,
+               Interpolate interpolate,
+               Scope scope,
+               FormatterMap formatters,
+               ElementProbe probe) {
+    probe.bindings.add(template);
+
     String expression = interpolate(template);
 
     scope.watch(expression,
@@ -33,12 +36,14 @@ class AttrMustache {
 
   // This Directive is special and does not go through injection.
   AttrMustache(this._attrs,
-                          String template,
-                          Interpolate interpolate,
-                          Scope scope,
-                          FormatterMap formatters) {
+               String template,
+               Interpolate interpolate,
+               Scope scope,
+               FormatterMap formatters,
+               ElementProbe probe) {
     var eqPos = template.indexOf('=');
     _attrName = template.substring(0, eqPos);
+    probe.bindings.add(template);
     String expression = interpolate(template.substring(eqPos + 1));
 
     _updateMarkup('', template);

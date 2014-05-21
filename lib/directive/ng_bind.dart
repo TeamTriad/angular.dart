@@ -20,7 +20,9 @@ part of angular.directive;
 class NgBind {
   final dom.Element element;
 
-  NgBind(this.element);
+  NgBind(this.element, ElementProbe probe) {
+    probe.bindings.add(element.attributes['ng-bind']);
+  }
 
   set value(value) => element.text = value == null ? '' : value.toString();
 }
