@@ -281,7 +281,7 @@ class _TestabilityInjector implements _JsObjectProxyable {
 }
 
 
-_enableAnimations(bool enabled, [dom.Node node]) {
+_allowAnimations(bool enabled, [dom.Node node]) {
   Injector injector;
   if (node == null) {
     injector = _findProbeInTree(dom.document).injector;
@@ -290,7 +290,7 @@ _enableAnimations(bool enabled, [dom.Node node]) {
   }
   AnimationOptimizer optimizer = injector.get(AnimationOptimizer);
   if (optimizer != null) {
-    optimizer.animationsEnabled = (enabled == true);
+    optimizer.animationsAllowed = (enabled == true);
   }
 }
 
@@ -313,7 +313,7 @@ class _TestabilityElement implements _JsObjectProxyable {
       'injector': () => injector()._toJsObject(),
       'probe': () => _jsProbe(probe),
       'scope': () => _jsScopeFromProbe(probe),
-      'enableAnimations': (bool enabled) => _enableAnimations(enabled, node),
+      'allowAnimations': (bool allowed) => _allowAnimations(allowed, node),
     })..['_dart_'] = this;
   }
 }
@@ -328,7 +328,7 @@ void publishToJavaScript() {
       new js.JsArray.from(ngQuery(node, selector, containsText));
   C['angular'] = new js.JsObject.jsify({
         'resumeBootstrap': ([arg]) {},
-        'enableAnimations': _enableAnimations,
+        'allowAnimations': _allowAnimations,
         'element': (node) => new _TestabilityElement(node)._toJsObject(),
       });
 }
