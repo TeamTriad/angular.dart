@@ -35,3 +35,5 @@ $DART --version
 
 # Run E2E tests
 (cd $NGDART_BASE_DIR ; source scripts/run-e2e-test.sh)
+
+echo ckck: FINISHED run-test.sh
