@@ -32,8 +32,8 @@ start_servers() {(
   # Allow chromedriver to be found on the system path.
   export PATH=$PATH:$PWD/e2e_bin
 
-  # Start selenium.
-  java -jar ./e2e_bin/selenium-server-standalone-2.42.0.jar &
+  # Start selenium.  Kill all output - selenium is extremely noisy.
+  java -jar ./e2e_bin/selenium-server-standalone-2.42.0.jar >/dev/null 2>&1 &
 )}
 
 
