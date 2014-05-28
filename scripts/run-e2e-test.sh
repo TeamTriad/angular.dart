@@ -5,7 +5,8 @@ set -vx
 (
 # Run everything in a subshell so all child processes are in one process group
 # that we can cleanup together.
-trap "kill 0" SIGINT SIGTERM EXIT
+trap "kill 0" SIGINT SIGTERM
+trap "EXIT_CODE=$?; kill 0; exit $EXIT_CODE" ERR
 
 # run e2e / protractor tests
 #
