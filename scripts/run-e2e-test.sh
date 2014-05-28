@@ -38,5 +38,8 @@ start_servers() {(
   sleep 10
 )}
 
+
+# Main
+install_deps
 start_servers
 ./node_modules/.bin/protractor_dart test_e2e/examplesConf.js
