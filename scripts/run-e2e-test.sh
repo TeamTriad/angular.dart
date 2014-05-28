@@ -16,6 +16,7 @@ install_deps() {(
   curl -O http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.0.jar
   # chromedriver
   curl -O http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+  unzip chromedriver_linux64.zip
 )}
 
 
