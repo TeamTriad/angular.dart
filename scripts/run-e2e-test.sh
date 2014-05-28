@@ -21,7 +21,11 @@ start_servers() {(
   trap "kill 0" SIGINT SIGTERM EXIT
 
   # Run examples.
-  (cd example && pub serve) &
+  (
+    cd example
+    pub build
+    pub serve &
+  )
 
   # Allow chromedriver to be found on the system path.
   export PATH=$PATH:$PWD/e2e_bin
