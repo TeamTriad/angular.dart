@@ -34,7 +34,7 @@ start_servers() {(
     rm -rf build/web/packages
     ln -s $PWD/packages build/web/packages
   )
-  (cd example/build/web && python -m SimpleHTTPServer 8080) &
+  (cd example/build/web && python -m SimpleHTTPServer 8080) >/dev/null 2>&1 &
 
   # Allow chromedriver to be found on the system path.
   export PATH=$PATH:$PWD/e2e_bin
