@@ -81,6 +81,6 @@ exports.config = {
     isVerbose: true, // display spec names.
     showColors: true, // print colors to the terminal.
     includeStackTrace: true, // include stack traces in failures.
-    defaultTimeoutInterval: 15000 // wait time in ms before failing a test.
+    defaultTimeoutInterval: 40000 // wait time in ms before failing a test.
   },
 };
