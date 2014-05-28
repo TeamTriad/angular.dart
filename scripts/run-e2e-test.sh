@@ -23,12 +23,12 @@ install_deps() {(
 # Start selenium
 start_servers() {(
   # Run examples.
-  (
-    cd example
+  ( cd example
     pub build
-    cd build/web
-    python -m SimpleHTTPServer 8080 &
+    rm -rf build/web/packages
+    rsync -rl web/ build/web/
   )
+  (cd example/build/web && python -m SimpleHTTPServer 8080) &
 
   # Allow chromedriver to be found on the system path.
   export PATH=$PATH:$PWD/e2e_bin
