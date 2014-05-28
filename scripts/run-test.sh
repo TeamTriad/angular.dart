@@ -34,4 +34,4 @@ $NGDART_SCRIPT_DIR/analyze.sh &&
     --browsers=Dartium,Chrome,Firefox --single-run --no-colors
 
 # Run E2E tests
-(cd $(dirname $0) ; source scripts/run-e2e-test.sh)
+(cd $NGDART_BASE_DIR ; source scripts/run-e2e-test.sh)
