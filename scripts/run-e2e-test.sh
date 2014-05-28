@@ -13,7 +13,7 @@ install_deps() {(
   mkdir e2e_bin
   cd e2e_bin
   # selenium
-  curl -O https://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.zip
+  curl -O http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.0.jar
   # chromedriver
   curl -O http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
 )}
@@ -32,7 +32,7 @@ start_servers() {(
   export PATH=$PATH:$PWD/e2e_bin
 
   # Start selenium.
-  java -jar ./e2e_bin/selenium-server-standalone-2.39.0.jar &
+  java -jar ./e2e_bin/selenium-server-standalone-2.42.0.jar &
 )}
 
 
