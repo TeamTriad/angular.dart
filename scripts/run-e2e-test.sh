@@ -51,9 +51,5 @@ install_deps
 start_servers
 (cd test_e2e && pub install)
 ./node_modules/.bin/protractor_dart test_e2e/examplesConf.js
-EXIT_CODE=$?
-echo ckck: FINISHED RUNNING protractor tests.  Now explicitly exiting.
-exit $EXIT_CODE
-echo ckck: should NOT have reached here.
 
 )
