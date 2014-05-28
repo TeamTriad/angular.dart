@@ -35,4 +35,4 @@ start_servers() {(
 )}
 
 start_servers
-./node_modules/.bin/protractor_dart test/e2e/examplesConf.js
+./node_modules/.bin/protractor_dart test_e2e/examplesConf.js
