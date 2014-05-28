@@ -23,7 +23,9 @@ install_deps() {(
 # Start selenium
 start_servers() {(
   # Run examples.
-  ( cd example
+  ( 
+    cd example
+    pub install
     pub build
     rm -rf build/web/packages
     rsync -rl web/ build/web/
