@@ -30,7 +30,7 @@ start_servers() {(
     cd example
     pub install
     pub build
-    rsync -rl web/ build/web/
+    rsync -rl --exclude packages web/ build/web/
     rm -rf build/web/packages
     ln -s $PWD/packages build/web/packages
   )
