@@ -26,7 +26,8 @@ start_servers() {(
   (
     cd example
     pub build
-    pub serve &
+    cd build/web
+    python -m SimpleHTTPServer 8080 &
   )
 
   # Allow chromedriver to be found on the system path.
