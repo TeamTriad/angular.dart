@@ -37,6 +37,8 @@ start_servers() {(
 
   # Start selenium.  Kill all output - selenium is extremely noisy.
   java -jar ./e2e_bin/selenium-server-standalone-2.42.0.jar >/dev/null 2>&1 &
+
+  sleep 4 # wait for selenium startup
 )}
 
 
