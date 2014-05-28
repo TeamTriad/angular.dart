@@ -1,5 +1,7 @@
 #!/bin/false
 
+set -vx
+
 (
 # Run everything in a subshell so all child processes are in one process group
 # that we can cleanup together.
