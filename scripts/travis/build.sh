@@ -104,7 +104,7 @@ function checkSize() {
 echo '---------------------------'
 echo '-- E2E TEST: AngularDart --'
 echo '---------------------------'
-(cd $NGDART_BASE_DIR ; source scripts/run-e2e-test.sh)
+$NGDART_BASE_DIR/scripts/run-e2e-test.sh
 
 
 echo '-------------------------'

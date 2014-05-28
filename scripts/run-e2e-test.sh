@@ -1,12 +1,28 @@
-#!/bin/false
+#!/bin/bash
 
-set -vx
+set -e
 
-(
-# Run everything in a subshell so all child processes are in one process group
-# that we can cleanup together.
-trap "kill 0" SIGINT SIGTERM
-trap "EXIT_CODE=$?; kill 0; exit $EXIT_CODE" ERR
+. $(dirname $0)/env.sh
+
+_onSignal() {
+  EXIT_CODE=$?
+  # Kill all child processes (running servers.)
+  kill 0
+  # Need to explicitly kill ourselves to let the caller know we died from a
+  # signal.  Ref: http://www.cons.org/cracauer/sigint.html
+  sig=$1
+  trap - $sig  # disable this signal so we don't capture it again.
+  if [[ "$sig" == "ERR" ]];
+    exit $EXIT_CODE
+  else
+    kill $sig $$
+  fi
+}
+
+for s in ERR HUP INT QUIT PIPE TERM ; do
+  trap "_onSignal $s" $s
+done
+
 
 # run e2e / protractor tests
 #
@@ -51,5 +67,3 @@ install_deps
 start_servers
 (cd test_e2e && pub install)
 ./node_modules/.bin/protractor_dart test_e2e/examplesConf.js
-
-)
