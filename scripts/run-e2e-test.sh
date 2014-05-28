@@ -30,8 +30,9 @@ start_servers() {(
     cd example
     pub install
     pub build
-    rm -rf build/web/packages
     rsync -rl web/ build/web/
+    rm -rf build/web/packages
+    ln -s $PWD/packages build/web/packages
   )
   (cd example/build/web && python -m SimpleHTTPServer 8080) &
 
