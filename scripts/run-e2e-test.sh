@@ -18,9 +18,7 @@ install_deps() {(
 start_servers() {(
   # Kill all background jobs (technically, all processes in the current process
   # group) on exit.
-  trap "kill 0" SIGINT
-  trap "kill 0" SIGTERM
-  trap "kill 0" EXIT
+  trap "kill 0" SIGINT SIGTERM EXIT
 
   # Run examples.
   (cd example && pub serve) &
