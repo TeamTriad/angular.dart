@@ -9,3 +9,7 @@ packages:
     description: js
     source: hosted
     version: "0.2.2"
+  protractor:
+    description: protractor
+    source: hosted
+    version: "0.0.2"
