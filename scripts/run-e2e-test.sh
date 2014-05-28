@@ -26,7 +26,7 @@ start_servers() {(
   (
     cd example
     pub build
-    pub serve --port=8080 &
+    pub serve &
   )
 
   # Allow chromedriver to be found on the system path.
